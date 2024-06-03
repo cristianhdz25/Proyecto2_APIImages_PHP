@@ -15,29 +15,14 @@ class ImageController
 
         if (move_uploaded_file($image["tmp_name"], $target_file)) {
             $response['status'] = 'success';
-            $response['message'] = 'The file ' . basename($image["name"]) . ' has been uploaded.';
-            $response['imageUrl'] = $target_file;
+            $response['message'] = 'La imagen ' . basename($image["name"]) . ' se guardó correctamente.';
+            $response['imageUrl'] = 'http://localhost/Proyecto2_APIImages_PHP/' . substr($target_file, 2);
         } else {
             $response['status'] = 'error';
-            $response['message'] = 'Sorry, there was an error uploading your file.';
+            $response['message'] = 'Lo sentimos, hubo un error al subir la imagen.';
         }
 
-       return $response;
-    }
-
-    function get_images($target_dir) {
-        $images = array();
-        if (is_dir($target_dir)) {
-            if ($dh = opendir($target_dir)) {
-                while (($file = readdir($dh)) !== false) {
-                    if ($file != '.' && $file != '..') {
-                        $images[] = $target_dir . $file;
-                    }
-                }
-                closedir($dh);
-            }
-        }
-        return $images;
+        return $response;
     }
 
 
